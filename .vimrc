@@ -106,13 +106,44 @@ call plug#begin()
 Plug 'derekwyatt/vim-scala'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
+
+" Configuration for vim-scala
+au BufRead,BufNewFile *.sbt set filetype=scala
+
+" Configuration for vim-plug
+Plug 'airblade/vim-gitgutter'
+Plug 'leafgarland/typescript-vim'
+Plug 'alvan/vim-closetag'    
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sensible'
+Plug 'derekwyatt/vim-scala'
+Plug 'modess/vim-phpcolors'
+Plug 'tomasiser/vim-code-dark'
+Plug 'blueshirts/darcula'
+Plug 'scrooloose/nerdtree'
+Plug 'gre/play2vim'
+Plug 'digitaltoad/vim-pug'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'derekwyatt/vim-scala'
+Plug 'cloudhead/neovim-fuzzy'
+
+Plug 'w0rp/ale'
+
 " 日本語help
 Plug 'vim-jp/vimdoc-ja'
 
 call plug#end()
 
-" Configuration for vim-scala
-au BufRead,BufNewFile *.sbt set filetype=scala
+
+if has('vim_starting')
+    " 挿入モード時に非点滅の縦棒タイプのカーソル
+    let &t_SI .= "\e[6 q"
+    " ノーマルモード時に非点滅のブロックタイプのカーソル
+    let &t_EI .= "\e[2 q"
+    " 置換モード時に非点滅の下線タイプのカーソル
+    let &t_SR .= "\e[4 q"
+endif
 
 augroup MyXML
   autocmd!
@@ -120,3 +151,19 @@ augroup MyXML
   autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
   autocmd Filetype eruby inoremap <buffer> </ </<C-x><C-o>
 augroup END
+
+
+" === マウスの有効化 ===
+if has('mouse')
+  set mouse=a
+  if has('mouse_sgr')
+    set ttymouse=sgr
+  elseif v:version > 703 || v:version is 703 && has('patch632')
+    set ttymouse=sgr
+  else
+    set ttymouse=xterm2
+  endif
+endif
+
+nnoremap ss :<C-u>sp<CR>
+nnoremap sv :<C-u>vs<CR>
